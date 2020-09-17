@@ -1,11 +1,14 @@
-# music-league-yehboi
-Practising webscraping and pandas
-
 # this is going to be a program that exports data from the music league website (webscraping) and 
 # creates a line graph from the data
 
 # downloadMusicLeagueResults
 
+
+
+# i think to progress with this i
+# need to get a better understanding
+# of html and how to use
+# beautiful soup
 
 import openpyxl
 import pandas as pd
@@ -157,6 +160,23 @@ for roundDict in scores:
         else:
             dfDict[lad].append(roundDict[lad])
 
+# now let's put in everyone's starting score of 0. there is probably a better way to do this
+# i'll rethink it at some point
+
+for scoresList in dfDict.values():
+    scoresList.insert(0,0)
+
 # put the dictionary into a dataframe
 
 MLdf = pd.DataFrame(dfDict)
+
+# plot a line chart with the dataframe. have realised i need to make the table the cumulative scores rather
+# that the weekly scores! whoops
+
+cumMLdf = MLdf.cumsum()
+
+# the below works! issue I have realised is that it would be nice if the line graph started everyone at 0,
+# rather than everyone starting at their week 1 point score.
+
+lines = cumMLdf.plot.line(x = None, y = None, title="Line Graph Showing Cumulative Score for Each Participant by Round")
+
