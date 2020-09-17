@@ -5,11 +5,6 @@
 
 
 
-# i think to progress with this i
-# need to get a better understanding
-# of html and how to use
-# beautiful soup
-
 import openpyxl
 import pandas as pd
 import bs4
@@ -54,7 +49,7 @@ leagueElem.click()
 # all of the different action link elements
 
 # for some reason, I have the run the program in two parts: everything up to this point AND THEN everything
-# after this point. If I try to run it all at once then it doesn't work as it can't identify any 'action-link's
+# after this point. If I try to run it all at once then it doesn't work as it can't identify any 'action-links'
 
 actionLinkElems = driver.find_elements_by_class_name('action-link')
 
@@ -112,7 +107,7 @@ while i <= len(roundResultElems):
     
     actionLinkElems2 = driver.find_elements_by_class_name('action-link')
 
-    # we need attain the 'Round Results' elements each time we do the loop, as we don't seem to be able to
+    # we need to attain the 'Round Results' elements each time we do the loop, as we don't seem to be able to
 	# reuse the elements after we have "clicked into" a round's results
 
     roundResultElems2 = []
@@ -135,7 +130,7 @@ for roundDict in scores:
         if lad not in participants:
             participants.append(lad)
 
-# the for loop below is to change thompson's participant name from '_andyt' to 'andyt', as you create
+# the for loop below is to change thompson's participant name from '_andyt' to 'andyt', as you can't create
 # line graphs from a dataframe where a column name starts with an underscore
 
 for lad in participants:
@@ -170,13 +165,12 @@ for scoresList in dfDict.values():
 
 MLdf = pd.DataFrame(dfDict)
 
-# plot a line chart with the dataframe. have realised i need to make the table the cumulative scores rather
-# that the weekly scores! whoops
+# cumulate everyone's scores in the dataframe
 
 cumMLdf = MLdf.cumsum()
 
-# the below works! issue I have realised is that it would be nice if the line graph started everyone at 0,
-# rather than everyone starting at their week 1 point score.
+# the below works!
 
 lines = cumMLdf.plot.line(x = None, y = None, title="Line Graph Showing Cumulative Score for Each Participant by Round")
+
 
